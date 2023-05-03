@@ -1,10 +1,16 @@
 <template>
   <header>{{title}}</header>
+  <Button text="Add task" color="green" />
 </template>
 
 <script>
+import Button from './Button'
+
 export default {
   name: 'Header',
+  components: {
+    Button
+  },
   props: {
     title: String
   }
