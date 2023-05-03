@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Header title="Task tracker" />
-    <AddTask />
+    <AddTask @add-task="addTask" />
     <Tasks
       :tasks="tasks"
       @delete-task="deleteTask"
@@ -28,6 +28,9 @@ export default {
     }
   },
   methods: {
+    addTask(task) {
+      this.tasks = [...this.tasks, task]
+    },
     deleteTask(id) {
       // console.log('task', id)
       if (confirm('Are you sure?')) {
