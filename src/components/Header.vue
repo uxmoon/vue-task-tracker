@@ -1,7 +1,11 @@
 <template>
   <header>
-    {{title}}
-    <Button text="Add task" color="green" />
+    {{ title }}
+    <Button
+      @toggle-add-task="$emit('toggle-add-task')"
+      :text="toggleText ? 'Close' : 'Add task'"
+      :color="toggleText ? 'darkred' : 'green'"
+    />
   </header>
 </template>
 
@@ -11,11 +15,13 @@ import Button from './Button'
 export default {
   name: 'Header',
   components: {
-    Button
+    Button,
   },
   props: {
-    title: String
-  }
+    title: String,
+    toggleText: Boolean,
+  },
+  emits: ['toggle-add-task'],
 }
 </script>
 
