@@ -1,6 +1,8 @@
 <template>
-  <header>{{title}}</header>
-  <Button text="Add task" color="green" />
+  <header>
+    {{title}}
+    <Button text="Add task" color="green" />
+  </header>
 </template>
 
 <script>
