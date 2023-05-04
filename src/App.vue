@@ -13,6 +13,8 @@
       @delete-task="deleteTask"
       @toggle-reminder="toggleReminder"
     />
+    <router-view></router-view>
+    <Footer />
   </div>
 </template>
 
@@ -20,6 +22,7 @@
 import Header from './components/Header'
 import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
+import Footer from './components/Footer'
 
 export default {
   name: 'App',
@@ -27,6 +30,7 @@ export default {
     Header,
     Tasks,
     AddTask,
+    Footer,
   },
   data() {
     return {
@@ -60,10 +64,22 @@ export default {
           : alert('Error deleting task')
       }
     },
-    toggleReminder(id) {
-      console.log('toggle', id)
+    async toggleReminder(id) {
+      // get the task to toggle
+      const taskToToggle = await this.fetchTask(id)
+      // update selected task
+      const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder }
+
+      const res = await fetch(`api/tasks/${id}`, {
+        method: 'PUT', // for updates
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updTask),
+      })
+      const data = await res.json()
       this.tasks = this.tasks.map((task) =>
-        task.id === id ? { ...task, reminder: !task.reminder } : task
+        task.id === id ? { ...task, reminder: data.reminder } : task
       )
     },
     async fetchData() {
