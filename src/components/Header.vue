@@ -2,9 +2,10 @@
   <header>
     {{ title }}
     <Button
+      v-show="homePage"
       @btn-click="$emit('toggle-add-task')"
-      :text="toggleText ? 'Close' : 'Add task'"
-      :color="toggleText ? 'darkred' : 'green'"
+      :text="toggleForm ? 'Close' : 'Add task'"
+      :color="toggleForm ? 'darkred' : 'green'"
     />
   </header>
 </template>
@@ -19,9 +20,18 @@ export default {
   },
   props: {
     title: String,
-    toggleText: Boolean,
+    toggleForm: Boolean,
   },
   emits: ['toggle-add-task'],
+  computed: {
+    homePage() {
+      if (this.$route.path === '/') {
+        return true
+      } else {
+        return false
+      }
+    },
+  },
 }
 </script>
 
